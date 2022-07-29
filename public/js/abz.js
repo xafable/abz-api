@@ -28,7 +28,7 @@ async function  getUsers(){
         card.querySelector('#name').innerHTML = item.name;
         card.querySelector('#position').innerHTML = item.position;
         card.querySelector('#email').innerHTML = item.email;
-        card.querySelector('#image').src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Mark_Wahlberg_2021.jpg/220px-Mark_Wahlberg_2021.jpg';
+        card.querySelector('#image').src = item.photo;
 
         let newCol = document.createElement("div");
         newCol.className = "col";
@@ -55,12 +55,16 @@ async function  getUser(){
     console.log(data);
 
 
+    document.getElementById('user_image').src = data.user.photo;
     document.getElementById('user_id').innerHTML = 'id: ' + data.user.id;
     document.getElementById('user_name').innerHTML = 'name: ' + data.user.name;
     document.getElementById('user_email').innerHTML = 'email: ' + data.user.email;
     document.getElementById('user_phone').innerHTML = 'phone: ' + data.user.phone;
     document.getElementById('user_position').innerHTML = 'position: ' + data.user.position;
     document.getElementById('user_position_id').innerHTML = 'position_id: ' + data.user.position_id;
+
+    userContainer = document.getElementById('userContainer');
+    userContainer.removeAttribute("hidden");
 
 }
 

@@ -27,8 +27,8 @@ class UserPostRequest extends FormRequest
         return [
             'photo' => ['required', new LessThan5],
             'name' => 'required|min:2|max:60',
-            'email' => 'required|min:2|max:100|email:rfc',
-            'phone' => 'required|regex:/(^[\+]{0,1}380([0-9]{9})$)/',
+            'email' => 'required|min:2|max:100|email:rfc|unique:App\Models\User,email',
+            'phone' => 'required|unique:App\Models\User,phone|regex:/(^[\+]{0,1}380([0-9]{9})$)/',
             'position_id' => 'required|integer|min:1'
         ];
     }

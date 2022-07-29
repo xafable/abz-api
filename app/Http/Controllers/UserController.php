@@ -52,7 +52,6 @@ class UserController extends Controller
 
             if($fails){
                 return response()->json([
-                    'f' => $count,
                     'success' => false,
                     'message'=> 'Validation failed.',
                     'fails'=> $fails
@@ -100,10 +99,14 @@ class UserController extends Controller
         $imageName = $user->id.'_photo_'.Carbon::now()->day.'.jpg';
         $request->photo->storeAs('images', $imageName,'public');
 
-        $tinify->resizeAndSave($path,$imageName);
+        $fullResizedImageUrl = $tinify->resizeAndSave($path,$imageName);
+
+        User::query()->where('id',$user->id)->update(['photo' => $fullResizedImageUrl]);
 
         return response()->json([
-            'success' => $user->id,
+            'success' => true,
+            'user_id' => $user->id,
+            'message' => 'New user successfully registered',
         ]);
 
     }
